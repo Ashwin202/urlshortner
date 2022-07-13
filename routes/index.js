@@ -1,11 +1,9 @@
 const { json } = require("body-parser");
 const bodyParser = require("body-parser");
 var express = require("express");
-var http = require("http");
 const app = express();
 var router = express.Router();
 var con = require("./database/db");
-var server = http.createServer(app);
 var jsonParser = bodyParser.json();
 
 process.env.PORT = process.env.PORT || 3000;
@@ -30,7 +28,7 @@ router
       // }
     );
     con.query(
-      `select id,longurl,(concat("localhost:3000/",shorturl)) as shorturl from urltable where shorturl="${uniqueID}";`,
+      `select id,longurl,(concat("localhost:3001/",shorturl)) as shorturl from urltable where shorturl="${uniqueID}";`,
       (error_urlshort, result_urlshort) => {
         if (!error_urlshort) {
           res.json(result_urlshort[0]);
