@@ -82,8 +82,6 @@ router.post("/createsms", jsonParser, (req, res) => {
         .replace("c3", short_key);
       console.log(new_message);
       res.send(new_message);
-      //   console.log("The message is = " + result[0].template);
-      // res.json(result[0]);
     } else {
       res
         .status(500)
