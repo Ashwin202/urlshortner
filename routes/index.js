@@ -1,4 +1,3 @@
-const { json } = require("body-parser");
 const bodyParser = require("body-parser");
 var express = require("express");
 const app = express();
@@ -6,27 +5,16 @@ var router = express.Router();
 var con = require("./database/db");
 var jsonParser = bodyParser.json();
 
+var checklink = require("./functions/checklink");
+var linktodb = require("./functions/shortkey");
+
 process.env.PORT = process.env.PORT || 3000;
 
 router
   .route("/urlshort")
   .post(jsonParser, (req, res) => {
     var longurl = req.body.longurl;
-    console.log(longurl);
-    let uniqueID = Math.random()
-      .toString(36)
-      .replace(/[^a-z]/gi, "")
-      .substr(0, 6);
-    con.query(
-      `insert into urltable(longurl,shorturl) values('${longurl}','${uniqueID}')`
-      // (err) => {
-      //   if (!err) {
-      //     res.status(200).json({ status: "Insertion to the database success" });
-      //   } else {
-      //     res.status(200).json({ status: "Insertion of longurl failed" });
-      //   }
-      // }
-    );
+    var uniqueID = linktodb(longurl);
     con.query(
       `select id,longurl,(concat("localhost:3001/",shorturl)) as shorturl from urltable where shorturl="${uniqueID}";`,
       (error_urlshort, result_urlshort) => {

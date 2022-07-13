@@ -15,6 +15,6 @@ con.connect((err) => {
 });
 app.use("/", router_sms);
 app.use("/", router);
-app.listen(3001, () => {
+app.listen(3002, () => {
   console.log("Server Started");
 });
