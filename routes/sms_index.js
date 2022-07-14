@@ -48,6 +48,7 @@ router.post("/createsms", jsonParser, (req, res) => {
   }
   con.query(`select template from sms where id="${id}";`, (err, result) => {
     if (!err) {
+      console.log(result);
       var message = result[0].template;
       let new_message = message
         .replace("c1", name)

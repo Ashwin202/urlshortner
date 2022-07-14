@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/stylesheet/style.css">
+
+<head>
+    <title>Task 2</title>
+
+<body>
+    <header>
+        <%- include('../partials/header.ejs') %>
+    </header>
+    <div class="form">
+        <form action="/urlshort" method="post">
+            <div class="form-box">
+                <div class="container" style="max-width: 912px;">
+                    <div class="form-element" style="font-size: 16px;">
+                        <label for="longurl" style="font-size: 20px;">Enter link</label>
+                        <input type="text" placeholder="http://site.com" name="longurl" required />
+                        <div class="form-element">
+                            <button type="submit" id="create-short-url">Create Short URL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </form>
+    <div class="list">
+        <h2>Details of links</h2>
+        <table id="list_urls">
+            <thead>
+                <tr>
+                    <th>LongURL</th>
+                    <th>ShortURL</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tr>
+                <% if(userData.length!=0){ var i=1; userData.forEach(function(data){ %>
+            <tr>
+                <td>
+                    <%- data.longurl %>
+                </td>
+                <td>
+                    <%- data.shorturl %>
+                </td>
+                <td>
+                    <%- data.hits %>
+                </td>
+            </tr>
+            <% i++; }) %>
+                <% } else{ %>
+                    <tr>
+                        <td colspan="7">No Data Found</td>
+                    </tr>
+                    <% } %>
+                        </tr>
+
+                        <tbody>
+                        </tbody>
+        </table>
+    </div>
+</body>
+</head>
+
+</html>
