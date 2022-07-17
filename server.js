@@ -1,8 +1,9 @@
 var express = require("express");
 var mysql = require("mysql");
 const app = express();
-var router = require("./routes/index");
 var router_sms = require("./routes/sms_index");
+var router = require("./routes/index");
+// var router_sms = require("./routes/sms_index");
 
 var con = require("./routes/database/db");
 

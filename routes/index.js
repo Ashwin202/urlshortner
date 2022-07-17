@@ -10,7 +10,7 @@ var linktodb = require("./functions/shortkey");
 
 process.env.PORT = process.env.PORT || 3000;
 router
-  .route("/urlshort")
+  .route("/")
   .post(urlParser, (req, res) => {
     var longurl = req.body.longurl;
     var uniqueID = linktodb(longurl);

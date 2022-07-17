@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheet/style_sms.css">
+    <title>Message template manager</title>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header.ejs') %>
+    </header>
+
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Message Template Manager</h1>
+            <!-- <p>Some text that represents "Me"...</p> -->
+        </div>
+    </div>
+
+    <div class="card-columns">
+        <% if(userData.length!=0){ var i=1; userData.forEach(function(data){ %>
+            <div class="card">
+                <img class="card-img-top" src="/images/12.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Template <%- data.id %>
+                    </h5>
+                    <p class="card-text scroll">
+                        <%- data.template %>.
+                    </p>
+                    <a href="/createsms" class="btn btn-primary">Create Template</a>
+                </div>
+            </div>
+            <% i++; }) }%>
+    </div>
+
+</body>
+
+</html>

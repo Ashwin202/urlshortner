@@ -9,7 +9,8 @@ function linktodb(str) {
     `insert into urltable(longurl,shorturl) values('${str}','${uniqueID}')`,
     (err) => {
       if (err) {
-        res.status(500).json({ status: "Error in inserting url to the db" });
+        throw err;
+        // res.status(500).json({ status: "Error in inserting url to the db" });
       }
     }
   );

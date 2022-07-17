@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <title>Message template</title>
+</head>
+<header>
+    <%- include('../partials/header.ejs') %>
+</header>
+
+<body>
+    <div class="form">
+        <form action="/createsms" method="post">
+            <div class="form-box">
+                <div class="container" style="max-width: 912px;">
+                    <div class="form-element" style="font-size: 16px; ">
+                        <label for="longurl" style="font-size: 20px; margin-top: 1rem;">Enter Template no</label>
+                        <input type="text" placeholder="Template number" name="id" required /><br>
+                        <label for="longurl" style="font-size: 20px; margin-top: 1rem;">Enter variable c1</label>
+                        <input type="text" placeholder="Enter the Name" name="c1" required /><br>
+                        <label for="longurl" style="font-size: 20px; margin-top: 1rem;">Enter variable c2</label>
+                        <input type="text" placeholder="Enter the date" name="c2" required />
+                        <label for="longurl" style="font-size: 20px; margin-top: 1rem;">Enter variable c3</label>
+                        <input type="text" placeholder="Enter the link" name="c3" required />
+                        <div class="form-element">
+                            <button type="submit" id="create-short-url" style="background: #1476e5;">Create
+                                Template</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <% if(message.length!=0 ) {%>
+        <div class="alert alert-success" role="alert" style="text-align:center;">
+            <h4 class="alert-heading">Here is your message!</h4>
+            <%- message %>
+                <hr>
+        </div>
+        <%} %>
+</body>
+
+</html>
