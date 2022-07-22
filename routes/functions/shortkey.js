@@ -1,4 +1,4 @@
-var con = require("../database/db");
+var con = require("../../database/db");
 
 function linktodb(str) {
   let uniqueID = Math.random()

@@ -1,39 +1,33 @@
 const bodyParser = require("body-parser");
-var express = require("express");
-const app = express();
-var router = express.Router();
-var con = require("./database/db");
-var jsonParser = bodyParser.json();
+var router = require("express").Router();
+var con = require("../database/db");
 var urlParser = bodyParser.urlencoded();
+
+var excecuteQuery = require("./functions/excecuteQuery");
+var buildQuery = require("./functions/query");
 
 var checklink = require("./functions/checklink");
 var linktodb = require("./functions/shortkey");
 
-router.get("/getsms/messagetemplate", (req, res) => {
-  con.query(`select * from sms`, (err, result) => {
-    if (!err) {
-      res.render("../views/pages/sms_temp.ejs", { userData: result });
-      // res.json(result);
-    } else {
-      res.status(500).json({ status: "Error in getting the templates" });
-    }
-  });
+router.get("/getsms/messagetemplate", async (req, res) => {
+  result = await excecuteQuery(buildQuery.getSMSTable());
+  console.log({ result });
+  if (result.length > 0) {
+    res.render("../views/pages/sms_temp.ejs", { userData: result });
+  } else {
+    res.send("Error 404");
+  }
 });
-
-router.post("/getsms/messagetemplate", urlParser, (req, res) => {
+router.post("/getsms/messagetemplate", urlParser, async (req, res) => {
   var id = req.body.id;
-  con.query(`select template from sms where id="${id}";`, (err, result) => {
-    if (!err) {
-      res.json(result[0]);
-    } else {
-      res
-        .status(500)
-        .json({ status: "Error in getting the template from the given id" });
-    }
-  });
+  result = await excecuteQuery(buildQuery.getSMSbyId(id));
+  if (result.length > 0) {
+    res.json(result[0]);
+  } else {
+    res.send("Error 404");
+  }
 });
-
-router.post("/createsms", urlParser, (req, res) => {
+router.post("/createsms", urlParser, async (req, res) => {
   var id = req.body.id;
   var name = req.body.c1;
   var date = req.body.c2;
@@ -49,25 +43,23 @@ router.post("/createsms", urlParser, (req, res) => {
       break;
     }
   }
-  con.query(`select template from sms where id="${id}";`, (err, result) => {
-    if (!err) {
-      console.log(result);
-      var message = result[0].template;
-      let new_message = message
-        .replace("c1", name)
-        .replace("c2", date)
-        .replace("c3", short_key);
-      console.log(new_message);
-      res.render("../views/pages/sms_generation.ejs", { message: new_message });
-    } else {
-      res
-        .status(500)
-        .json({ status: "Error in getting the template from the given id" });
-    }
-  });
+  result = await excecuteQuery(buildQuery.getSMSbyId(id));
+  if (result.length > 0) {
+    console.log(result);
+    var message = result[0].template;
+    let new_message = message
+      .replace("c1", name)
+      .replace("c2", date)
+      .replace("c3", short_key);
+    console.log(new_message);
+    res.render("../views/pages/sms_generation.ejs", { message: new_message });
+  } else {
+    res
+      .status(500)
+      .json({ status: "Error in getting the template from the given id" });
+  }
 });
 router.get("/createsms", (req, res) => {
   res.render("../views/pages/sms_generation.ejs", { message: "" });
 });
-
 module.exports = router;

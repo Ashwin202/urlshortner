@@ -3,9 +3,9 @@ var mysql = require("mysql");
 const app = express();
 var router_sms = require("./routes/sms_index");
 var router = require("./routes/index");
-// var router_sms = require("./routes/sms_index");
+require("dotenv").config();
 
-var con = require("./routes/database/db");
+var con = require("./database/db");
 
 con.connect((err) => {
   if (err) {
@@ -18,6 +18,6 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use("/", router_sms);
 app.use("/", router);
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server Started");
 });
