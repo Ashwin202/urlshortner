@@ -40,3 +40,9 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
     $ git clone https://github.com/Ashwin202/urlshortner.git
     $ Install nodemon by running the code npm install -g nodemon . This helps to install it globally.
     $ Hit npm start
+    $ Create .env file, example
+    * PORT=8080
+    * HOST="localhost"
+    * DB_USER= "root"
+    * PASSWORD="*********"
+    * DATABASE="URL_DATABASE"
